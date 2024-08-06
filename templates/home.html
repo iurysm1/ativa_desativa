@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+    <form id="formreiniciar" method="POST">
+        <button id="reinicar" class="btn btn-success" type="submit">Reiniciar</button>
+    </form>
+
+
+    <script>
+
+        const botao = document.getElementById('reinicar')
+        const form = document.getElementById('formreiniciar')
+        botao.addEventListener('click', reset) 
+
+
+        async function reset(event) {
+            setTimeout(function() {
+                enable(event)
+            }, 30000);
+            try{
+                disable(event)
+                await fetch('/reset',{
+                    method:'POST',
+                    headers: {
+                        "Content-Type" : "application/json",
+                    Accept: "application/json"
+                    },
+                    body: JSON.stringify('teste')
+
+                });
+            }catch(e){
+                throw new Error(e)
+            }
+        }
+
+
+        function disable(event){
+            event.preventDefault()
+            event.target.disabled=true
+            event.target.innerHTML="Reiniciando ..."
+        }
+
+        function enable(event){
+            event.target.disabled=false
+            event.target.innerHTML="Reiniciar"
+        }
+    </script>
+{% endblock %}
