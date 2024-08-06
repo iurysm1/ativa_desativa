@@ -69,4 +69,4 @@ def logout():
 
 
 if __name__== "__main__":
-    app.run(host="10.2.12.3",debug=True)
+    app.run(debug=True)
